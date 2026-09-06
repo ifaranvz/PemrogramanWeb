@@ -120,3 +120,11 @@ Halaman yang sudah ada (Beranda, Daftar/Tambah Buku, Daftar/Tambah Anggota — J
 |                                                     |
 |   Sudah punya akun / terdaftar? Login di sini       |
 +-----------------------------------------------------+
+
+### User Flow: Petugas Mencari Anggota yang Menunggak Lewat Jatuh Tempo
+
+Skenario ini menggambarkan alur kerja ketika petugas ingin melacak atau melihat daftar anggota yang memiliki keterlambatan pengembalian buku (tunggakan lewat jatuh tempo)
+
+[Dashboard Petugas] -> [Pilih Menu "Anggota" / "Laporan"] -> [Filter Status: "Menunggak / Terlambat"] 
+        -> [Sistem Menampilkan Daftar Anggota & Detail Buku yang Belum Kembali] 
+        -> [Pilih Anggota Tertentu untuk Detail Kontak] -> [Kirim Peringatan / Selesai]
