@@ -105,6 +105,7 @@ Halaman yang sudah ada (Beranda, Daftar/Tambah Buku, Daftar/Tambah Anggota — J
 
 ## Wireframe: Halaman Registrasi Anggota Baru (Aktor: Tamu)
 
+```
 +-----------------------------------------------------+
 | SIMPUS-Mini      Beranda | Katalog Buku | [ Daftar ]|
 |-----------------------------------------------------|
@@ -120,11 +121,20 @@ Halaman yang sudah ada (Beranda, Daftar/Tambah Buku, Daftar/Tambah Anggota — J
 |                                                     |
 |   Sudah punya akun / terdaftar? Login di sini       |
 +-----------------------------------------------------+
+```
 
 ### User Flow: Petugas Mencari Anggota yang Menunggak Lewat Jatuh Tempo
 
 Skenario ini menggambarkan alur kerja ketika petugas ingin melacak atau melihat daftar anggota yang memiliki keterlambatan pengembalian buku (tunggakan lewat jatuh tempo)
 
+```
 [Dashboard Petugas] -> [Pilih Menu "Anggota" / "Laporan"] -> [Filter Status: "Menunggak / Terlambat"] 
         -> [Sistem Menampilkan Daftar Anggota & Detail Buku yang Belum Kembali] 
         -> [Pilih Anggota Tertentu untuk Detail Kontak] -> [Kirim Peringatan / Selesai]
+```
+
+### Edge Case Tambahan: Peminjaman Buku Ganda (Double Borrowing)
+* **Kasus:** Petugas mencoba meminjamkan buku yang persis sama kepada anggota yang sama dua kali berturut-turut, padahal buku tersebut belum dikembalikan dari transaksi peminjaman sebelumnya.
+* **Penanganan Sistem (Expected Behavior):** 
+  1. Sistem mendeteksi bahwa ID Anggota dan ID Buku yang diinput sudah berstatus "Sedang Dipinjam" dan belum ada riwayat pengembalian (`returned_at == null`).
+  2. Sistem membatalkan transaksi dan menampilkan pesan peringatan (*error/warning notification*): *"Gagal: Anggota ini masih meminjam buku tersebut dan belum melakukan pengembalian."*
