@@ -1,4 +1,4 @@
-/* ===== Reset & Base ===== */
+/* ===== Reset & Base (Mobile-First) ===== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -21,7 +21,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* ===== Header & Navbar (Flexbox) ===== */
+/* ===== Header & Navbar (Mobile Default) ===== */
 header {
     background-color: #2d5a27;
     color: #fff;
@@ -30,16 +30,40 @@ header {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    position: relative;
 }
 
 header h1 {
     font-size: 1.4rem;
 }
 
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    display: block;
+    font-size: 1.6rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+header nav {
+    display: none;
+    width: 100%;
+    order: 3;
+    margin-top: 1rem;
+}
+
+.nav-toggle:checked ~ nav {
+    display: block;
+}
+
 header nav ul {
     list-style: none;
     display: flex;
-    gap: 1.25rem;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 header nav a {
@@ -67,10 +91,10 @@ section h2 {
     color: #2d5a27;
 }
 
-/* ===== Kartu Statistik (CSS Grid) ===== */
+/* ===== Kartu Statistik (Mobile-First CSS Grid: 1 Kolom) ===== */
 main section:nth-of-type(2) {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
     gap: 1rem;
 }
 
@@ -162,7 +186,7 @@ form label {
 form input,
 form select {
     width: 100%;
-    max-width: 400px;
+    max-width: 100%;
     padding: 0.55rem 0.7rem;
     border: 1px solid #cdd4da;
     border-radius: 4px;
@@ -197,63 +221,47 @@ footer {
     -webkit-overflow-scrolling: touch;
 }
 
-/* ===== Hamburger Menu (checkbox hack) ===== */
-.nav-toggle {
-    display: none;
-}
 
-.nav-toggle-label {
-    display: none;
-    font-size: 1.6rem;
-    color: #fff;
-    cursor: pointer;
-}
+/* ========================================= */
+/* ===== RESPONSIVE BREAKPOINTS (MIN-WIDTH) == */
+/* ========================================= */
 
-/* ===== Responsive Breakpoints ===== */
-
-/* Tablet ke bawah */
-@media (max-width: 900px) {
+/* Mulai Tablet (min-width: 481px) */
+@media (min-width: 481px) {
     main section:nth-of-type(2) {
         grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Mobile */
-@media (max-width: 480px) {
-    header {
-        position: relative;
-    }
-
-    .nav-toggle-label {
-        display: block;
-    }
-
-    header nav {
-        display: none;
-        width: 100%;
-        order: 3;
-        margin-top: 1rem;
-    }
-
-    .nav-toggle:checked ~ nav {
-        display: block;
-    }
-
-    header nav ul {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-
-    main section:nth-of-type(2) {
-        grid-template-columns: 1fr;
     }
 
     form input,
     form select {
-        max-width: 100%;
+        max-width: 400px;
     }
 }
 
+/* Mulai Desktop/Layar Sedang (min-width: 768px) */
+@media (min-width: 768px) {
+    .nav-toggle-label {
+        display: none;
+    }
+
+    header nav {
+        display: block;
+        width: auto;
+        order: unset;
+        margin-top: 0;
+    }
+
+    header nav ul {
+        flex-direction: row;
+        gap: 1.25rem;
+    }
+
+    main section:nth-of-type(2) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Mulai Layar Lebar (min-width: 1400px) */
 @media (min-width: 1400px) {
     main {
         max-width: 1200px;
