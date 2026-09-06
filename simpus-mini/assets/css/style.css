@@ -194,6 +194,7 @@ footer {
 /* ===== Tabel Responsif ===== */
 .table-responsive {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* ===== Hamburger Menu (checkbox hack) ===== */
