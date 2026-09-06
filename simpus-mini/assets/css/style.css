@@ -191,6 +191,11 @@ footer {
     font-size: 0.9rem;
 }
 
+/* ===== Tabel Responsif ===== */
+.table-responsive {
+    overflow-x: auto;
+}
+
 /* ===== Hamburger Menu (checkbox hack) ===== */
 .nav-toggle {
     display: none;
