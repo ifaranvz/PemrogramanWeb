@@ -244,21 +244,33 @@ footer {
 
 /* ===== Responsive Breakpoints ===== */
 
-/* Tablet ke bawah */
-@media (max-width: 768px) {
-    main section:nth-of-type(2) {
-        grid-template-columns: repeat(2, 1fr);
+/* Tampilan Desktop / Laptop */
+@media (min-width: 768px) {
+    .nav-toggle-label {
+        display: none;
+    }
+
+    header nav {
+        display: block !important;
+        width: auto;
+        order: unset;
+        margin-top: 0;
+    }
+
+    header nav ul {
+        flex-direction: row;
+        gap: 1.25rem;
     }
 }
 
-/* Mobile */
-@media (max-width: 480px) {
+/* Mobile & Tablet kecil (di bawah 768px) */
+@media (max-width: 768px) {
     header {
         position: relative;
     }
 
     .nav-toggle-label {
-        display: block;
+        display: block; /* Tombol hamburger akan muncul untuk semua ukuran di bawah 768px */
     }
 
     header nav {
@@ -278,7 +290,7 @@ footer {
     }
 
     main section:nth-of-type(2) {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     form input,
