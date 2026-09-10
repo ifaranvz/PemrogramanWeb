@@ -220,6 +220,14 @@ footer {
     cursor: pointer;
 }
 
+/* ===== Pesan Error Validasi ===== */
+.error {
+    display: block;
+    color: #d9534f;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+
 /* ========================================= */
 /* ===== RESPONSIVE BREAKPOINTS (MIN-WIDTH) == */
 /* ========================================= */
