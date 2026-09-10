@@ -37,17 +37,6 @@ header h1 {
     font-size: 1.4rem;
 }
 
-.nav-toggle {
-    display: none;
-}
-
-.nav-toggle-label {
-    display: block;
-    font-size: 1.6rem;
-    color: #fff;
-    cursor: pointer;
-}
-
 header nav {
     display: none;
     width: 100%;
@@ -55,7 +44,7 @@ header nav {
     margin-top: 1rem;
 }
 
-.nav-toggle:checked ~ nav {
+header nav.nav-open {
     display: block;
 }
 
@@ -221,6 +210,15 @@ footer {
     -webkit-overflow-scrolling: touch;
 }
 
+/* ===== Hamburger Menu (JS-driven) ===== */
+.nav-toggle-label {
+    display: none;
+    font-size: 1.6rem;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
 
 /* ========================================= */
 /* ===== RESPONSIVE BREAKPOINTS (MIN-WIDTH) == */
