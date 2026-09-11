@@ -9,8 +9,29 @@ function initNavToggle() {
     });
 }
 
+// ===== Fungsi helper untuk update counter baris =====
+function updateCounter(table) {
+    const counterEl = document.getElementById("counter-text");
+    if (!counterEl || !table) return;
+
+    const rows = table.querySelectorAll("tr");
+    let total = 0;
+    let tampil = 0;
+
+    rows.forEach(function (row, index) {
+        if (index === 0) return; // Lewati baris header
+        total++;
+        if (row.style.display !== "none") {
+            tampil++;
+        }
+    });
+
+    counterEl.textContent = `Menampilkan ${tampil} dari ${total} data`;
+}
+
 // ===== Konfirmasi hapus (front-end only, belum ke server) =====
 function initHapusConfirm() {
+    const table = document.querySelector("table");
     document.querySelectorAll(".btn-hapus").forEach(function (btn) {
         btn.addEventListener("click", function () {
             const row = btn.closest("tr");
@@ -18,6 +39,9 @@ function initHapusConfirm() {
             const yakin = confirm("Yakin ingin menghapus \"" + nama + "\"?");
             if (yakin && row) {
                 row.remove();
+                if (table) {
+                    updateCounter(table);
+                }
             }
         });
     });
@@ -29,13 +53,20 @@ function initTableFilter() {
     const table = document.querySelector("table");
     if (!input || !table) return;
 
+    // Inisialisasi counter saat halaman pertama dimuat
+    updateCounter(table);
+
     input.addEventListener("keyup", function () {
         const keyword = input.value.toLowerCase();
         const rows = table.querySelectorAll("tr");
-        rows.forEach(function (row) {
+        rows.forEach(function (row, index) {
+            if (index === 0) return; // Jangan sembunyikan baris header
             const teks = row.textContent.toLowerCase();
             row.style.display = teks.includes(keyword) ? "" : "none";
         });
+
+        // Perbarui counter setiap kali mengetik filter
+        updateCounter(table);
     });
 }
 
