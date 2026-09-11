@@ -274,14 +274,19 @@ footer {
     }
 
     header nav {
-        display: none;
+        max-height: 0;
+        overflow: hidden;
         width: 100%;
         order: 3;
-        margin-top: 1rem;
+        margin-top: 0;
+        transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        opacity: 0;
     }
 
     header nav.nav-open {
-        display: block;
+        max-height: 250px;
+        opacity: 1;
+        margin-top: 1rem;
     }
 
     header nav ul {
