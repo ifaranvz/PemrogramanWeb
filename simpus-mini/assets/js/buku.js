@@ -4,7 +4,7 @@ function muatDaftarBuku() {
         "../data/buku.json",
         ".table-responsive table tbody",
         "loading-indicator",
-        ["judul", "pengarang", "tahun", "stok"],
+        ["judul", "pengarang", "kategori", "tahun", "stok"],
         (buku) => '<button type="button">Edit</button> <button type="button" class="btn-hapus">Hapus</button>'
     );
 }
