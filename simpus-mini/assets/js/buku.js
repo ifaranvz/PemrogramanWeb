@@ -39,3 +39,6 @@ async function muatDaftarBuku() {
 }
 
 document.addEventListener("DOMContentLoaded", muatDaftarBuku);
+document.getElementById('btnMuatUlang').addEventListener('click', () => {
+    muatDaftarBuku();
+});
