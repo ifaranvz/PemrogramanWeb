@@ -162,7 +162,7 @@ async function muatDataGenerik(urlFileJson, selectorTbody, idLoading, daftarKunc
     tbody.innerHTML = "";
 
     try {
-        await new Promise((resolve) => setTimeout(resolve, 600)); // Simulasi delay
+        await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulasi delay
 
         const res = await fetch(urlFileJson);
         if (!res.ok) {
