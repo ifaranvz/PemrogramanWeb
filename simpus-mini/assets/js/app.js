@@ -150,6 +150,48 @@ function initValidasiForm() {
     });
 }
 
+// Fungsi generik untuk memuat data tabel secara asinkron
+async function muatDataGenerik(urlFileJson, selectorTbody, idLoading, daftarKunci, renderTombolAksi) {
+    const tbody = document.querySelector(selectorTbody);
+    const loading = document.getElementById(idLoading);
+    if (!tbody) return;
+
+    if (loading) loading.style.display = "block";
+    tbody.innerHTML = "";
+
+    try {
+        await new Promise((resolve) => setTimeout(resolve, 600)); // Simulasi delay
+
+        const res = await fetch(urlFileJson);
+        if (!res.ok) {
+            throw new Error("Gagal mengambil data (status " + res.status + ")");
+        }
+        const dataList = await res.json();
+
+        dataList.forEach(function (item) {
+            const tr = document.createElement("tr");
+            
+            // Loop dinamis berdasarkan daftar kunci/properti yang dikirim
+            let htmlKolom = "";
+            daftarKunci.forEach(function (kunci) {
+                htmlKolom += "<td>" + item[kunci] + "</td>";
+            });
+
+            // Tambahkan kolom tombol aksi jika ada
+            if (renderTombolAksi) {
+                htmlKolom += "<td>" + renderTombolAksi(item) + "</td>";
+            }
+
+            tr.innerHTML = htmlKolom;
+            tbody.appendChild(tr);
+        });
+    } catch (err) {
+        tbody.innerHTML = "<tr><td colspan=\"100\">Gagal memuat data: " + err.message + "</td></tr>";
+    } finally {
+        if (loading) loading.style.display = "none";
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     initNavToggle();
     initHapusConfirm();
