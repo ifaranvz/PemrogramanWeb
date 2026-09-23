@@ -1,6 +1,7 @@
 <?php
 $page_title = "Beranda";
 include __DIR__ . '/includes/header.php';
+require __DIR__ . '/includes/koneksi.php';
 
 $totalBuku = count($_SESSION['buku'] ?? []);
 $totalAnggota = count($_SESSION['anggota'] ?? []);
