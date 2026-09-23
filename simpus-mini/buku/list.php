@@ -28,13 +28,14 @@ $daftarBuku = $pdo->query("SELECT * FROM buku ORDER BY id DESC")->fetchAll(PDO::
                         <th>Pengarang</th>
                         <th>Tahun</th>
                         <th>Stok</th>
+                        <th>Tanggal Ditambahkan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($daftarBuku)): ?>
                     <tr>
-                        <td colspan="5">Belum ada data buku. Silakan tambah lewat menu "Tambah Buku".</td>
+                        <td colspan="6">Belum ada data buku. Silakan tambah lewat menu "Tambah Buku".</td>
                     </tr>
                     <?php else: ?>
                         <?php foreach ($daftarBuku as $buku): ?>
@@ -43,6 +44,7 @@ $daftarBuku = $pdo->query("SELECT * FROM buku ORDER BY id DESC")->fetchAll(PDO::
                             <td><?php echo $buku['pengarang']; ?></td>
                             <td><?php echo $buku['tahun']; ?></td>
                             <td><?php echo $buku['stok']; ?></td>
+                            <td><?php echo isset($buku['tanggal_ditambahkan']) ? date('d M Y H:i', strtotime($buku['tanggal_ditambahkan'])) : '-'; ?></td>
                             <td>
                                 <button type="button">Edit</button>
                                 <button type="button" class="btn-hapus">Hapus</button>
