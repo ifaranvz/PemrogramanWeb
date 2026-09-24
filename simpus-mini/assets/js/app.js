@@ -29,22 +29,20 @@ function updateCounter(table) {
     counterEl.textContent = `Menampilkan ${tampil} dari ${total} data`;
 }
 
-// ===== Konfirmasi hapus (front-end only, belum ke server) =====
-// Memakai event delegation di document karena baris tabel sekarang
-// dirender dinamis via fetch (lihat buku.js/anggota.js) sehingga
-// tombol .btn-hapus belum tentu ada saat DOMContentLoaded.
+// Tombol Hapus kini berada di dalam <form class="form-hapus" method="post">
+// yang benar-benar mengirim request DELETE ke server (buku/hapus.php,
+// anggota/hapus.php). Konfirmasi dilakukan pada event "submit" agar bisa
+// dibatalkan (preventDefault) sebelum request terkirim.
 function initHapusConfirm() {
-    document.addEventListener("click", function (e) {
-        console.log(e.target);
+    document.addEventListener("submit", function (e) {
+        const form = e.target;
+        if (!form.classList.contains("form-hapus")) return;
 
-        const btn = e.target.closest(".btn-hapus");
-        if (!btn) return;
-
-        const row = btn.closest("tr");
+        const row = form.closest("tr");
         const nama = row ? row.querySelector("td")?.textContent : "data ini";
         const yakin = confirm("Yakin ingin menghapus \"" + nama + "\"?");
-        if (yakin && row) {
-            row.remove();
+        if (!yakin) {
+            e.preventDefault();
         }
     });
 }
@@ -95,21 +93,21 @@ function initValidasiForm() {
     form.addEventListener("submit", function (e) {
         let valid = true;
 
-        // Daftar field wajib diisi menggunakan array
-        const fieldWajib = [
-            { selector: "[name='judul'], [name='nama']", pesan: "Field ini wajib diisi." },
-            { selector: "[name='pengarang']", pesan: "Pengarang wajib diisi." }
-        ];
+        const judul = form.querySelector("[name='judul'], [name='nama']");
+        if (judul && judul.value.trim() === "") {
+            tampilkanError(judul, "Field ini wajib diisi.");
+            valid = false;
+        } else if (judul) {
+            hapusError(judul);
+        }
 
-        fieldWajib.forEach(function (item) {
-            const input = form.querySelector(item.selector);
-            if (input && input.value.trim() === "") {
-                tampilkanError(input, item.pesan);
-                valid = false;
-            } else if (input) {
-                hapusError(input);
-            }
-        });
+        const pengarang = form.querySelector("[name='pengarang']");
+        if (pengarang && pengarang.value.trim() === "") {
+            tampilkanError(pengarang, "Pengarang wajib diisi.");
+            valid = false;
+        } else if (pengarang) {
+            hapusError(pengarang);
+        }
 
         const tahun = form.querySelector("[name='tahun']");
         if (tahun) {
@@ -133,25 +131,11 @@ function initValidasiForm() {
             }
         }
 
-        const isbn = form.querySelector("[name='isbn']");
-        if (isbn && isbn.value.trim() !== "") {
-            const isbnPola = /^[0-9-]+$/;
-            if (!isbnPola.test(isbn.value.trim())) {
-                tampilkanError(isbn, "ISBN hanya boleh berisi angka dan tanda hubung (-).");
-                valid = false;
-            } else {
-                hapusError(isbn);
-            }
-        } else if (isbn) {
-            hapusError(isbn);
-        }
-
         if (!valid) {
             e.preventDefault();
         }
     });
 }
-
 // Fungsi generik untuk memuat data tabel secara asinkron
 async function muatDataGenerik(urlFileJson, selectorTbody, idLoading, daftarKunci, renderTombolAksi) {
     const tbody = document.querySelector(selectorTbody);
