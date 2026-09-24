@@ -60,7 +60,7 @@ if ($q !== '') {
                             <td><?php echo $buku['stok']; ?></td>
                             <td><?php echo isset($buku['tanggal_ditambahkan']) ? date('d M Y H:i', strtotime($buku['tanggal_ditambahkan'])) : '-'; ?></td>
                             <td>
-                                <button type="button">Edit</button>
+                                <a href="edit.php?id=<?php echo $buku['id']; ?>" class="btn">Edit</a>
                                 <button type="button" class="btn-hapus">Hapus</button>
                             </td>
                         </tr>
