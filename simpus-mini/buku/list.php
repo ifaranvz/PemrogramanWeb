@@ -70,7 +70,7 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
                             <td><?php echo $buku['tahun']; ?></td>
                             <td><?php echo $buku['stok']; ?></td>
                             <td>
-                                <a href="edit.php?id=<?php echo $buku['id']; ?>" class="btn-edit">Edit</a>
+                                <a href="edit.php?id=<?php echo $buku['id']; ?>">Edit</a>
                                 <form class="form-hapus" method="post" action="hapus.php">
                                     <input type="hidden" name="id" value="<?php echo $buku['id']; ?>">
                                     <button type="submit" class="btn-hapus">Hapus</button>
