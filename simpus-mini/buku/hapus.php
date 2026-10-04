@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/../includes/auth.php';
+require __DIR__ . '/../includes/csrf.php';
 require __DIR__ . '/../includes/koneksi.php';
 
 // Sengaja hanya menerima POST (bukan GET) agar penghapusan tidak bisa
@@ -8,6 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: list.php');
     exit;
 }
+
+csrf_verify();
 
 $id = $_POST['id'] ?? null;
 if ($id) {
