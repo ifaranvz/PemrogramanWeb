@@ -21,6 +21,7 @@ unset($_SESSION['flash']);
             <?php endif; ?>
 
             <form method="post" action="proses_login.php">
+                <?php echo csrf_field(); ?>
                 <p>
                     <label for="username">Username</label><br>
                     <input type="text" id="username" name="username" required>
@@ -28,11 +29,6 @@ unset($_SESSION['flash']);
                 <p>
                     <label for="password">Password</label><br>
                     <input type="password" id="password" name="password" required>
-                </p>
-                <p>
-                    <label style="font-weight: normal; cursor: pointer;">
-                        <input type="checkbox" name="remember_me" value="1" style="width: auto;"> Ingat Saya
-                    </label>
                 </p>
                 <p>
                     <button type="submit">Masuk</button>
