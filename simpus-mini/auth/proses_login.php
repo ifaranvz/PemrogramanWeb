@@ -15,6 +15,14 @@ if ($user && password_verify($password, $user['password'])) {
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['nama'] = $user['nama'];
     $_SESSION['role'] = $user['role'];
+
+    // Fitur "Ingat Saya": buat cookie berlaku 7 hari jika checkbox dicentang
+    if (isset($_POST['remember_me'])) {
+        $cookie_value = $user['id'];
+        $cookie_expire = time() + (7 * 24 * 60 * 60); // 7 hari
+        setcookie('remember_user', $cookie_value, $cookie_expire, '/', '', false, true);
+    }
+
     header('Location: ../index.php');
     exit;
 }
