@@ -47,15 +47,15 @@ header nav a {
     font-weight: 500;
 }
 
-.auth-status {
+header .auth-status {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     color: #fff;
 }
 
-.auth-status a {
-    color: #fff;
+header .auth-status a {
+    color: #ffffff !important;
     text-decoration: underline;
 }
 
