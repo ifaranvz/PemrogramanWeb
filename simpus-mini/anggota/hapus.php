@@ -1,5 +1,13 @@
 <?php
 require __DIR__ . '/../includes/auth.php';
+
+// Cek Otorisasi: Hanya role 'admin' yang boleh menghapus anggota
+if (($_SESSION['role'] ?? '') !== 'admin') {
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Akses ditolak! Hanya Admin yang boleh menghapus data anggota.'];
+    header('Location: list.php');
+    exit;
+}
+
 require __DIR__ . '/../includes/koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
