@@ -1,5 +1,5 @@
 <?php
-session_start();
+require __DIR__ . '/../includes/auth.php';
 require __DIR__ . '/../includes/koneksi.php';
 
 $judul = trim($_POST['judul'] ?? '');
@@ -23,11 +23,6 @@ if (!is_numeric($tahun) || $tahun < 1900 || $tahun > 2026) {
 }
 if (!is_numeric($stok) || $stok < 0) {
     $errors[] = "Stok tidak boleh negatif.";
-}
-
-// Validasi ISBN (opsional, tapi jika diisi hanya boleh angka dan tanda hubung)
-if ($isbn !== '' && !preg_match('/^[0-9-]+$/', $isbn)) {
-    $errors[] = "ISBN hanya boleh berisi angka dan tanda hubung.";
 }
 
 if (!empty($errors)) {
