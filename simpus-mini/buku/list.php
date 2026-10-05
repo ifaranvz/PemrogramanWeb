@@ -12,6 +12,11 @@ $offset = ($page - 1) * $perPage;
 $keyword = trim($_GET['q'] ?? '');
 
 if ($keyword !== '') {
+    // 1. Validasi token CSRF khusus untuk metode GET saat pencarian dilakukan
+    if (empty($_GET['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_GET['csrf_token'])) {
+        die("Akses ditolak: Token CSRF tidak valid pada pencarian.");
+    }
+
     $hitung = $pdo->prepare("SELECT COUNT(*) FROM buku WHERE judul ILIKE :kw");
     $hitung->execute(['kw' => '%' . $keyword . '%']);
     $totalRows = $hitung->fetchColumn();
@@ -38,6 +43,9 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
 
             <div class="search-box">
                 <form method="get" action="list.php">
+                    <!-- 2. Tambahkan Input Hidden CSRF Token di sini -->
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                    
                     <span>
                         <label for="search-input">Cari Judul Buku</label><br>
                         <input type="text" id="search-input" name="q" value="<?php echo e($keyword); ?>" placeholder="Ketik judul buku...">
@@ -86,7 +94,8 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
 
             <nav class="pagination">
                 <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <a href="list.php?page=<?php echo $i; ?><?php echo $keyword !== '' ? '&q=' . urlencode($keyword) : ''; ?>"
+                <!-- 3. Sisipkan token CSRF ke dalam link pagination jika sedang dalam mode pencarian -->
+                <a href="list.php?page=<?php echo $i; ?><?php echo $keyword !== '' ? '&q=' . urlencode($keyword) . '&csrf_token=' . urlencode($_SESSION['csrf_token']) : ''; ?>"
                    class="<?php echo $i === $page ? 'active' : ''; ?>"><?php echo $i; ?></a>
                 <?php endfor; ?>
             </nav>
