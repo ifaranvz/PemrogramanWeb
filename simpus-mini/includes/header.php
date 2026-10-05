@@ -2,6 +2,10 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+// Tambahkan header Content-Security-Policy (CSP)
+header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; object-src 'none';");
+
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/csrf.php';
 $sudahLogin = isset($_SESSION['user_id']);
