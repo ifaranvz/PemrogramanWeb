@@ -41,10 +41,10 @@ try {
         throw new Exception('Stok buku tidak tersedia.');
     }
 
-    // 3. Catat transaksi peminjaman baru
+    // 3. Catat transaksi peminjaman baru dengan tanggal jatuh tempo otomatis 14 hari
     $insert = $pdo->prepare(
-        "INSERT INTO peminjaman (buku_id, anggota_id, tanggal_pinjam, status)
-         VALUES (:buku_id, :anggota_id, CURRENT_DATE, 'dipinjam')"
+        "INSERT INTO peminjaman (buku_id, anggota_id, tanggal_pinjam, tanggal_jatuh_tempo, status)
+         VALUES (:buku_id, :anggota_id, CURRENT_DATE, CURRENT_DATE + INTERVAL '14 days', 'dipinjam')"
     );
     $insert->execute(['buku_id' => $bukuId, 'anggota_id' => $anggotaId]);
 
