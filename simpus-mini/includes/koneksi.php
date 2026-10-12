@@ -1,18 +1,13 @@
 <?php
-$host     = 'localhost';
-$port     = '5434';
-$db       = 'simpus_mini';
-$user     = 'postgres';
-$password = 'bismillah';
-
-$dsn = "pgsql:host=$host;port=$port;dbname=$db";
+$config = require __DIR__ . '/config.php';
 
 try {
-    $pdo = new PDO($dsn, $user, $password, [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ]);
+    $pdo = new PDO(
+        "pgsql:host={$config['db_host']};port={$config['db_port']};dbname={$config['db_name']}",
+        $config['db_user'],
+        $config['db_pass']
+    );
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Koneksi database gagal: " . $e->getMessage());
 }
-?>
