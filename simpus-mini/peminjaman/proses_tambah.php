@@ -17,18 +17,18 @@ if ($anggotaId === '' || $bukuId === '') {
 try {
     $pdo->beginTransaction();
 
-    // 1. Validasi Bisnis: Cek apakah anggota memiliki peminjaman aktif yang terlambat > 14 hari
+    // 1. Validasi Bisnis: Cek apakah anggota memiliki peminjaman aktif yang terlambat > 14 hari dari jatuh tempo
     $cekTerlambat = $pdo->prepare(
         "SELECT COUNT(*) FROM peminjaman 
          WHERE anggota_id = :anggota_id 
            AND status = 'dipinjam' 
-           AND (CURRENT_DATE - tanggal_pinjam) > 14"
+           AND (CURRENT_DATE - tanggal_jatuh_tempo) > 14"
     );
     $cekTerlambat->execute(['anggota_id' => $anggotaId]);
     $jumlahTerlambat = $cekTerlambat->fetchColumn();
 
     if ($jumlahTerlambat > 0) {
-        throw new Exception('Anggota memiliki peminjaman yang terlambat lebih dari 14 hari dan tidak dapat meminjam buku baru.');
+        throw new Exception('Anggota memiliki peminjaman buku yang terlambat lebih dari 14 hari dan tidak dapat meminjam buku baru.');
     }
 
     // 2. Kunci baris buku (FOR UPDATE) agar stok tidak berubah oleh transaksi lain
