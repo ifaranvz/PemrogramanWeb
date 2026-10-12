@@ -8,8 +8,13 @@
 
 1. Buka `http://localhost:8000/auth/register.php`.
 2. Isi Nama, Username, Password (minimal 6 karakter), klik **Daftar**. **[Screenshot: form registrasi]**
-3. Setelah berhasil, akan diarahkan ke halaman Login. Masukkan username & password yang baru dibuat, klik **Masuk**. **[Screenshot: form login]**
-4. Setelah berhasil login, navbar menampilkan nama petugas dan tombol **Logout**, serta menu tambahan (Tambah Buku, Daftar/Tambah Anggota, Peminjaman) yang tidak terlihat oleh Tamu. **[Screenshot: navbar setelah login]**
+3. Setelah berhasil, akan diarahkan ke halaman Login. Masukkan username & password yang baru dibuat, klik **Masuk**. 
+   
+   ![Form Login](img/login.png)
+
+4. Setelah berhasil login, navbar menampilkan nama petugas dan tombol **Logout**, serta menu tambahan (Tambah Buku, Daftar/Tambah Anggota, Peminjaman) yang tidak terlihat oleh Tamu. 
+   
+   ![Halaman Beranda](img/beranda.png)
 
 ## 2. Mengelola Data Buku
 
